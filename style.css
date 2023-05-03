@@ -1,0 +1,68 @@
+*{
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+:root{
+  font-size: 62.5%;
+  --ff-all:'Roboto', sans-serif;
+}
+
+main{
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+
+  height: 100vh;
+  max-width: 82.1rem;
+
+  margin: 0 auto;
+}
+
+.time{
+  display: flex;
+  flex-direction: row;
+}
+
+.controls{
+  display: flex;
+  flex-direction: row;
+  gap: 4rem;
+}
+
+.time h1{
+  font-family: var(--ff-all);
+  font-style: normal;
+  font-weight: 500;
+  font-size: 12.166rem;
+  line-height: 14.8rem;
+  color: #323238;
+}
+
+.screen2{
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 3.2rem;
+}
+
+.screen2 div{
+  padding: 4.8rem;
+  
+  background: #E1E1E6;
+  
+  border-radius: 2.4rem;
+}
+
+.hide{
+  display: none;
+}
+
+.screen2 .select{
+  background: #02799D;
+}
+
+.screen2 .select svg path{
+  fill: #ffffff;
+}
