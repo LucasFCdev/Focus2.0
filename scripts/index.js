@@ -14,6 +14,7 @@ let minutesDisplay = document.querySelector(".minutes")
 let secondsDisplay = document.querySelector(".seconds")
 let minutes = Number(minutesDisplay.textContent)
 let seconds = Number(secondsDisplay.textContent)
+let minutesSet = Number(minutesDisplay.textContent)
 
 function UpdateTimeDisplay (minutes, seconds){
   minutesDisplay.textContent = String(minutes).padStart(2, "0")
@@ -21,7 +22,12 @@ function UpdateTimeDisplay (minutes, seconds){
 }
 
 function countDown(){
-  setTimeout(function(){
+  timerTimeOut = setTimeout(function(){
+
+    if (minutes == 0 && seconds == 0){
+      return
+    }    
+
     if(seconds == 0){
       minutes--;
       seconds = 5
@@ -40,6 +46,7 @@ function countDown(){
 function addMinutes(){
   if(minutes <= 58){  
     minutes++
+    minutesSet = minutes
     UpdateTimeDisplay(minutes,0)
   }
   else{
@@ -51,6 +58,7 @@ function addMinutes(){
 function subMinutes(){
   if(minutes >= 1){  
     minutes--
+    minutesSet = minutes
     UpdateTimeDisplay(minutes, 0)
   }
   else{
@@ -59,9 +67,18 @@ function subMinutes(){
   }
 }
 
-buttonPlay.addEventListener('click', countDown)
+buttonPlay.addEventListener('click', function(){
+  countDown()
+
+  buttonPlay.classList.add('on')
+})
 buttonPlus.addEventListener('click', addMinutes)
 buttonSubtraction.addEventListener('click', subMinutes)
+buttonStop.addEventListener('click', function(){
+  clearTimeout(timerTimeOut)
+  UpdateTimeDisplay(minutesSet, String(0))
+  buttonPlay.classList.remove('on')
+})
 
 
 forest.addEventListener('click', function(){
