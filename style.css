@@ -36,6 +36,15 @@ main{
   gap: 4rem;
 }
 
+.controls svg path:hover{
+  fill: #131218;
+  cursor: pointer;
+}
+
+.controls .on svg path{
+  fill: #636375;
+}
+
 .time h1{
   font-family: var(--ff-all);
   font-style: normal;
@@ -57,6 +66,8 @@ main{
   background: #E1E1E6;
   
   border-radius: 2.4rem;
+
+  cursor: pointer;
 }
 
 
