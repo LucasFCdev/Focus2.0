@@ -1,3 +1,6 @@
+import Sounds from "./sounds.js"
+
+let timerTimeOut
 let buttonPlay = document.querySelector(".button-play")
 let buttonStop = document.querySelector(".button-stop")
 let buttonPlus = document.querySelector(".button-plus")
@@ -16,6 +19,8 @@ let minutes = Number(minutesDisplay.textContent)
 let seconds = Number(secondsDisplay.textContent)
 let minutesSet = Number(minutesDisplay.textContent)
 
+const sound = Sounds()
+
 function UpdateTimeDisplay (minutes, seconds){
   minutesDisplay.textContent = String(minutes).padStart(2, "0")
   secondsDisplay.textContent = String(seconds).padStart(2, "0")
@@ -25,6 +30,7 @@ function countDown(){
   timerTimeOut = setTimeout(function(){
 
     if (minutes == 0 && seconds == 0){
+      stopTime()
       return
     }    
 
@@ -43,11 +49,19 @@ function countDown(){
   }, 1000)
 }
 
+function stopTime(){
+  seconds = 0
+  minutes = minutesSet
+  clearTimeout(timerTimeOut)
+  UpdateTimeDisplay(minutesSet, String(0))
+  buttonPlay.classList.remove('on')
+}
+
 function addMinutes(){
   if(minutes <= 58){  
-    minutes++
-    minutesSet = minutes
-    UpdateTimeDisplay(minutes,0)
+    minutesSet = minutesSet+5
+    minutes = minutesSet
+    UpdateTimeDisplay(minutesSet,0)
   }
   else{
     alert('Você não adicionar mais minutos')
@@ -57,9 +71,9 @@ function addMinutes(){
 
 function subMinutes(){
   if(minutes >= 1){  
-    minutes--
-    minutesSet = minutes
-    UpdateTimeDisplay(minutes, 0)
+    minutesSet = minutesSet-5
+    minutes = minutesSet
+    UpdateTimeDisplay(minutesSet, 0)
   }
   else{
     alert('Você não pode adicionar mais minutos')
@@ -72,13 +86,12 @@ buttonPlay.addEventListener('click', function(){
 
   buttonPlay.classList.add('on')
 })
+
 buttonPlus.addEventListener('click', addMinutes)
+
 buttonSubtraction.addEventListener('click', subMinutes)
-buttonStop.addEventListener('click', function(){
-  clearTimeout(timerTimeOut)
-  UpdateTimeDisplay(minutesSet, String(0))
-  buttonPlay.classList.remove('on')
-})
+
+buttonStop.addEventListener('click',stopTime )
 
 
 forest.addEventListener('click', function(){
@@ -91,6 +104,11 @@ forest.addEventListener('click', function(){
   rain.classList.remove('hide')
   coffee.classList.remove('hide')
   firePlace.classList.remove('hide')
+
+  sound.forestSound.play()
+  sound.rainSound.pause()
+  sound.coffeeSound.pause()
+  sound.firePlaceSound.pause()
 })
 
 rain.addEventListener('click', function(){
@@ -103,6 +121,11 @@ rain.addEventListener('click', function(){
   rain.classList.add('hide')
   coffee.classList.remove('hide')
   firePlace.classList.remove('hide')
+
+  sound.forestSound.pause()
+  sound.rainSound.play()
+  sound.coffeeSound.pause()
+  sound.firePlaceSound.pause()
 })
 
 coffee.addEventListener('click', function(){
@@ -115,6 +138,11 @@ coffee.addEventListener('click', function(){
   rain.classList.remove('hide')
   coffee.classList.add('hide')
   firePlace.classList.remove('hide')
+
+  sound.forestSound.pause()
+  sound.rainSound.pause()
+  sound.coffeeSound.play()
+  sound.firePlaceSound.pause()
 })
 
 firePlace.addEventListener('click', function(){
@@ -127,4 +155,9 @@ firePlace.addEventListener('click', function(){
   rain.classList.remove('hide')
   coffee.classList.remove('hide')
   firePlace.classList.add('hide')
+
+  sound.forestSound.pause()
+  sound.rainSound.pause()
+  sound.coffeeSound.pause()
+  sound.firePlaceSound.play()
 })

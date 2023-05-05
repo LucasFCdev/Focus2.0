@@ -43,6 +43,7 @@ main{
 
 .controls .on svg path{
   fill: #636375;
+  cursor:default;
 }
 
 .time h1{
