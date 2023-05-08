@@ -1,6 +1,6 @@
 import Sounds from "./sounds.js"
+import Timer from "./timer.js"
 
-let timerTimeOut
 let buttonPlay = document.querySelector(".button-play")
 let buttonStop = document.querySelector(".button-stop")
 let buttonPlus = document.querySelector(".button-plus")
@@ -21,39 +21,18 @@ let minutesSet = Number(minutesDisplay.textContent)
 
 const sound = Sounds()
 
-function UpdateTimeDisplay (minutes, seconds){
-  minutesDisplay.textContent = String(minutes).padStart(2, "0")
-  secondsDisplay.textContent = String(seconds).padStart(2, "0")
-}
-
-function countDown(){
-  timerTimeOut = setTimeout(function(){
-
-    if (minutes == 0 && seconds == 0){
-      stopTime()
-      return
-    }    
-
-    if(seconds == 0){
-      minutes--;
-      seconds = 5
-      console.log("marquei os minutos")
-    }
-
-    seconds--
-
-    UpdateTimeDisplay(minutes, seconds)
-
-    countDown()
-
-  }, 1000)
-}
+const timer = Timer({
+  minutes,
+  seconds,
+  minutesDisplay,
+  secondsDisplay
+})
 
 function stopTime(){
   seconds = 0
   minutes = minutesSet
-  clearTimeout(timerTimeOut)
-  UpdateTimeDisplay(minutesSet, String(0))
+  timer.reset()
+  timer.UpdateTimeDisplay(minutesSet, String(0))
   buttonPlay.classList.remove('on')
 }
 
@@ -61,7 +40,7 @@ function addMinutes(){
   if(minutes <= 58){  
     minutesSet = minutesSet+5
     minutes = minutesSet
-    UpdateTimeDisplay(minutesSet,0)
+    timer.UpdateTimeDisplay(minutesSet,0)
   }
   else{
     alert('Você não adicionar mais minutos')
@@ -73,7 +52,7 @@ function subMinutes(){
   if(minutes >= 1){  
     minutesSet = minutesSet-5
     minutes = minutesSet
-    UpdateTimeDisplay(minutesSet, 0)
+    timer.UpdateTimeDisplay(minutesSet, 0)
   }
   else{
     alert('Você não pode adicionar mais minutos')
@@ -82,7 +61,7 @@ function subMinutes(){
 }
 
 buttonPlay.addEventListener('click', function(){
-  countDown()
+  timer.countDown()
 
   buttonPlay.classList.add('on')
 })
