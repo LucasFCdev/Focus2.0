@@ -15,7 +15,6 @@ export default function Timer({
 
   function reset(){
     clearTimeout(timerTimeOut)
-    console.log("cheguei na função")
   }
 
   function countDown(){
