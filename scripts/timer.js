@@ -1,10 +1,10 @@
-
 export default function Timer({
   minutes,
   seconds,
   minutesDisplay,
-  secondsDisplay
-}){ 
+  secondsDisplay,
+})
+{ 
 
   let timerTimeOut
   
@@ -19,7 +19,7 @@ export default function Timer({
 
   function countDown(){
     timerTimeOut = setTimeout(function(){
-
+     
       if (minutes == 0 && seconds == 0){
         stopTime()
         return
@@ -43,6 +43,7 @@ export default function Timer({
     UpdateTimeDisplay,
     countDown,
     reset,
+
   }
 
 }

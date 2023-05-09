@@ -1,6 +1,7 @@
 import Sounds from "./sounds.js"
 import Timer from "./timer.js"
 import LayoutControls from "./layoutControls.js"
+import TimerControls from "./timerControls.js"
 
 
 let buttonPlay = document.querySelector(".button-play")
@@ -27,7 +28,7 @@ const timer = Timer({
   minutes,
   seconds,
   minutesDisplay,
-  secondsDisplay
+  secondsDisplay,
 })
 
 const layoutControls = LayoutControls({
@@ -41,48 +42,25 @@ const layoutControls = LayoutControls({
   firePlaceSelect
 })
 
-function stopTime(){
-  seconds = 0
+/*const timerControls = TimerControls({
+    seconds,
+    minutesSet,
+    buttonPlay, 
+    UpdateTimer,
+})*/
+
+function UpdateTimer(){
+  console.log("Teste " + minutesSet)
   minutes = minutesSet
-  timer.reset()
-  timer.UpdateTimeDisplay(minutesSet, String(0))
-  buttonPlay.classList.remove('on')
-}
-
-function addMinutes(){
-  if(minutes <= 58){  
-    minutesSet = minutesSet+5
-    minutes = minutesSet
-    timer.UpdateTimeDisplay(minutesSet,0)
-  }
-  else{
-    alert('Você não adicionar mais minutos')
-    return
-  }
-}
-
-function subMinutes(){
-  if(minutes >= 1){  
-    minutesSet = minutesSet-5
-    minutes = minutesSet
-    timer.UpdateTimeDisplay(minutesSet, 0)
-  }
-  else{
-    alert('Você não pode adicionar mais minutos')
-    return
-  }
 }
 
 buttonPlay.addEventListener('click', function(){
   timer.countDown()
-
   buttonPlay.classList.add('on')
 })
 
-buttonPlus.addEventListener('click', addMinutes)
-
-buttonSubtraction.addEventListener('click', subMinutes)
-
-buttonStop.addEventListener('click',stopTime )
+buttonPlus.addEventListener('click',timerControls.addMinutes)
+buttonSubtraction.addEventListener('click',timerControls.subMinutes)
+buttonStop.addEventListener('click',timerControls.stopTime )
 
 
