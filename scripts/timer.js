@@ -1,6 +1,6 @@
 
 export default function Timer({
-  minutes,
+  minutesSet,
   seconds,
   minutesDisplay,
   secondsDisplay
@@ -17,8 +17,14 @@ export default function Timer({
     clearTimeout(timerTimeOut)
   }
 
+  function UpdateTime(newMinutes){
+    minutesSet = newMinutes
+  }
+
   function countDown(){
     timerTimeOut = setTimeout(function(){
+      
+      let minutes = Number(minutesDisplay.textContent)
 
       if (minutes == 0 && seconds == 0){
         stopTime()

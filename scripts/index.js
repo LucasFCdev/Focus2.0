@@ -2,7 +2,6 @@ import Sounds from "./sounds.js"
 import Timer from "./timer.js"
 import LayoutControls from "./layoutControls.js"
 
-
 let buttonPlay = document.querySelector(".button-play")
 let buttonStop = document.querySelector(".button-stop")
 let buttonPlus = document.querySelector(".button-plus")
@@ -17,14 +16,15 @@ let firePlace = document.querySelector(".fireplace")
 let firePlaceSelect = document.querySelector(".fireplace.select")
 let minutesDisplay = document.querySelector(".minutes")
 let secondsDisplay = document.querySelector(".seconds")
-let minutes = Number(minutesDisplay.textContent)
+
 let seconds = Number(secondsDisplay.textContent)
 let minutesSet = Number(minutesDisplay.textContent)
+
 
 const sound = Sounds()
 
 const timer = Timer({
-  minutes,
+  minutesSet,
   seconds,
   minutesDisplay,
   secondsDisplay
@@ -43,16 +43,15 @@ const layoutControls = LayoutControls({
 
 function stopTime(){
   seconds = 0
-  minutes = minutesSet
+  
   timer.reset()
   timer.UpdateTimeDisplay(minutesSet, String(0))
   buttonPlay.classList.remove('on')
 }
 
 function addMinutes(){
-  if(minutes <= 58){  
+  if(minutesSet <= 58){  
     minutesSet = minutesSet+5
-    minutes = minutesSet
     timer.UpdateTimeDisplay(minutesSet,0)
   }
   else{
@@ -62,9 +61,8 @@ function addMinutes(){
 }
 
 function subMinutes(){
-  if(minutes >= 1){  
+  if(minutesSet >= 1){  
     minutesSet = minutesSet-5
-    minutes = minutesSet
     timer.UpdateTimeDisplay(minutesSet, 0)
   }
   else{
